@@ -1,0 +1,1 @@
+The first topic we looked at was Location Based Services, and how to pinpoint the location of an unknown point given its distance to three other points.
