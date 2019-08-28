@@ -9,7 +9,7 @@ d3 = sqrt(52)
 x = (d2**2 - d1**2 - 1) / 2
 y = (d3**2 - d1**2 - 1) / 2
 
-disatnce_error = abs(x**2 + y**2 - d1**2)
+distance_error = abs(x**2 + y**2 - d1**2)
 
 # Perfrom the check to ensure the point is valid
 if distance_error < 10**(-8):
