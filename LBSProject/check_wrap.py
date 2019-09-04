@@ -52,11 +52,11 @@ def locator(distance):
 ### The code below will be used for grading the assignment.
 def locator_check(a,b):
     global count
+    count = 0
     def r(x,y):
         global count
         count += 1
         return(round(sqrt((x-a)**2+(y-b)**2)))
-    count = 0
     start_time = time()
     point,error = locator(r)
     run_time = time()-start_time
