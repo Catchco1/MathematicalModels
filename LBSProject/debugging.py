@@ -17,9 +17,12 @@ def locator(distance):
         (x,y) = (x_new,y_new)
         print(x,y)
         d = distance(x,y)
-    x1 = x + 2
+    
+    x1 = x
+    while(distance(x1,y) < 1):
+        x1 += 0.25
     print(x1)
-    while (sqrt((x - x1)**2) >= 0.001): 
+    while (sqrt((x - x1)**2) >= 0.5): 
   
         # Find middle point 
         c = (x+x1)/2
@@ -27,16 +30,30 @@ def locator(distance):
 
         check = distance(c,y)
         print('check:{}'.format(check))
-        # Check if middle point is on the circle 
-        if (check == 0): 
-            print(x,y)
-            break
    
         # Decide the side to repeat the steps 
-        if (check*d < 0): 
+        if (check == 0): 
             x = c 
         else: 
             x1 = c 
+        print(x,y)
+    y1 = y
+    while(distance(x,y1) < 1):
+        y1 += 0.25
+    while (sqrt((y - y1)**2) >= 0.5): 
+  
+        # Find middle point 
+        c = (y+y1)/2
+        print('c:{}'.format(c))
+
+        check = distance(x,c)
+        print('check:{}'.format(check))
+   
+        # Decide the side to repeat the steps 
+        if (check == 0): 
+            y = c 
+        else: 
+            y1 = c 
         print(x,y)
 
 # To test:
