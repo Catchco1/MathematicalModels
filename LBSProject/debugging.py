@@ -17,10 +17,31 @@ def locator(distance):
         (x,y) = (x_new,y_new)
         print(x,y)
         d = distance(x,y)
+    x1 = x + 10
+    print(x1)
+    while (sqrt((x - x1)**2) >= 0.01): 
+  
+        # Find middle point 
+        c = (x+x1)/2
+        print('c:{}'.format(c))
+
+        check = distance (c,y)
+        print('check:{}'.format(check))
+        # Check if middle point is root 
+        if (check == 0): 
+            break
+   
+        # Decide the side to repeat the steps 
+        if (check*d < 0): 
+            x = c 
+        else: 
+            x1 = c 
+        print(x,y)
 
 # To test:
 
 locator(dist(210.3124,342.3248))
+#locator(dist(-270.68,301.76))
 
 
 
