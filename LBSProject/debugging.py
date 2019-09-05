@@ -9,7 +9,7 @@ def dist(a,b):
 def locator(distance):
     (x,y) = (0,0)
     d = distance(x,y)
-    while d > 0:
+    while d > 1:
         x_new = x - (distance(x+1,y) - d)*d
         y_new = y - (distance(x,y+1) - d)*d
         if x_new == x and y_new == y:
@@ -17,18 +17,19 @@ def locator(distance):
         (x,y) = (x_new,y_new)
         print(x,y)
         d = distance(x,y)
-    x1 = x + 10
+    x1 = x + 2
     print(x1)
-    while (sqrt((x - x1)**2) >= 0.01): 
+    while (sqrt((x - x1)**2) >= 0.001): 
   
         # Find middle point 
         c = (x+x1)/2
         print('c:{}'.format(c))
 
-        check = distance (c,y)
+        check = distance(c,y)
         print('check:{}'.format(check))
-        # Check if middle point is root 
+        # Check if middle point is on the circle 
         if (check == 0): 
+            print(x,y)
             break
    
         # Decide the side to repeat the steps 
