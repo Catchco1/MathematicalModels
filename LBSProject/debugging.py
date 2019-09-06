@@ -19,13 +19,19 @@ def locator(distance):
         d = distance(x,y)
     
     x1 = x
+    x2 = x
+    xPrime = x
+    xPrime2 = x
+    yPrime = y
+    y1 = y
     while(distance(x1,y) < 1):
         x1 += 0.25
-    print(x1)
-    while (sqrt((x - x1)**2) >= 0.5): 
+    while(distance(x2, y) < 1):
+        x2 -= 0.25
+    while (abs(xPrime - x1) >= 0.01): 
   
         # Find middle point 
-        c = (x+x1)/2
+        c = (xPrime+x1)/2
         print('c:{}'.format(c))
 
         check = distance(c,y)
@@ -33,28 +39,41 @@ def locator(distance):
    
         # Decide the side to repeat the steps 
         if (check == 0): 
-            x = c 
+            xPrime = c 
         else: 
             x1 = c 
-        print(x,y)
-    y1 = y
-    while(distance(x,y1) < 1):
-        y1 += 0.25
-    while (sqrt((y - y1)**2) >= 0.5): 
-  
+    while(abs(xPrime2 - x2) >= 0.01):
         # Find middle point 
-        c = (y+y1)/2
+        c = (xPrime2+x2)/2
         print('c:{}'.format(c))
 
-        check = distance(x,c)
+        check = distance(c,y)
         print('check:{}'.format(check))
    
         # Decide the side to repeat the steps 
         if (check == 0): 
-            y = c 
+            xPrime2 = c 
         else: 
-            y1 = c 
-        print(x,y)
+            x2 = c 
+    while(distance(xPrime, y1) < 1):
+        y1 += 0.25
+
+    while (abs(yPrime - y1) >= 0.01): 
+        # Find middle point 
+        c = (yPrime+y1)/2
+
+        check = distance(xPrime, c)
+   
+        # Decide the side to repeat the steps 
+        if (check == 0): 
+            yPrime = c 
+        else: 
+            y1 = c
+    BobX = (xPrime + xPrime2) / 2
+    BobY = (yPrime + y) / 2
+
+    print(BobX, BobY)  
+    
 
 # To test:
 
