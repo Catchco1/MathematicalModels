@@ -70,7 +70,7 @@ def locator_check(a,b):
                                                       error,count,run_time))
 
 def main():
-    points = [[210,-340],[-20.5463,34.46372]]
+    points = [[210,-340],[-20.5463,34.46372],[10,10],[0.25,0.25]]
     check = Pool()
     for point in points:
         result = check.apply_async(locator_check,point)
