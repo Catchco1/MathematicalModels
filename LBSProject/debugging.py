@@ -45,9 +45,6 @@ def locator(distance):
     xPrime = x
     xPrime2 = x
     yPrime = y
-    yPrime2 = y
-    y1 = y + 1
-    y2 = y - 1
     while (abs(xPrime - x1) >= 0.01): 
   
         # Find middle point 
@@ -75,7 +72,10 @@ def locator(distance):
             xPrime2 = c 
         else: 
             x2 = c 
-
+    if(distance(xPrime2,y+0.1) == 0):
+        y1 = y + 1
+    else:
+        y1 = y - 1
     while (abs(yPrime - y1) >= 0.01): 
         # Find middle point 
         c = (yPrime+y1)/2
@@ -89,21 +89,21 @@ def locator(distance):
             yPrime = c 
         else: 
             y1 = c
-    while(abs(yPrime2 - y2) >= 0.01):
-        # Find middle point 
-        c = (yPrime2+y2)/2
+    # while(abs(yPrime2 - y2) >= 0.01):
+    #     # Find middle point 
+    #     c = (yPrime2+y2)/2
 
-        check = distance(xPrime, c)
-        count += 1
-        print('count for y2:{}'.format(count))
+    #     check = distance(xPrime, c)
+    #     count += 1
+    #     print('count for y2:{}'.format(count))
    
-        # Decide the side to repeat the steps 
-        if (check == 0): 
-            yPrime2 = c 
-        else: 
-            y2 = c
+    #     # Decide the side to repeat the steps 
+    #     if (check == 0): 
+    #         yPrime2 = c 
+    #     else: 
+    #         y2 = c
     BobX = (xPrime + xPrime2) / 2
-    BobY = (yPrime + yPrime2) / 2
+    BobY = (yPrime + y) / 2
 
     print((BobX, BobY))  
     return((round(BobX,2),round(BobY,2)),1)
