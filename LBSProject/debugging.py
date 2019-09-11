@@ -31,7 +31,7 @@ def locator(distance):
         x1 += 0.25
     while(distance(x2, y) < 1):
         x2 -= 0.25
-    while (abs(xPrime - x1) >= 0.001): 
+    while (abs(xPrime - x1) >= 0.01): 
   
         # Find middle point 
         c = (xPrime+x1)/2
@@ -43,7 +43,7 @@ def locator(distance):
             xPrime = c 
         else: 
             x1 = c 
-    while(abs(xPrime2 - x2) >= 0.001):
+    while(abs(xPrime2 - x2) >= 0.01):
         # Find middle point 
         c = (xPrime2+x2)/2
 
@@ -59,7 +59,7 @@ def locator(distance):
     while(distance(xPrime, y2) < 1):
         y2 -= 0.25
 
-    while (abs(yPrime - y1) >= 0.001): 
+    while (abs(yPrime - y1) >= 0.01): 
         # Find middle point 
         c = (yPrime+y1)/2
 
@@ -70,7 +70,7 @@ def locator(distance):
             yPrime = c 
         else: 
             y1 = c
-    while(abs(yPrime2 - y2) >= 0.001):
+    while(abs(yPrime2 - y2) >= 0.01):
         # Find middle point 
         c = (yPrime2+y2)/2
 
