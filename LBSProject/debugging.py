@@ -89,19 +89,6 @@ def locator(distance):
             yPrime = c 
         else: 
             y1 = c
-    # while(abs(yPrime2 - y2) >= 0.01):
-    #     # Find middle point 
-    #     c = (yPrime2+y2)/2
-
-    #     check = distance(xPrime, c)
-    #     count += 1
-    #     print('count for y2:{}'.format(count))
-   
-    #     # Decide the side to repeat the steps 
-    #     if (check == 0): 
-    #         yPrime2 = c 
-    #     else: 
-    #         y2 = c
     BobX = (xPrime + xPrime2) / 2
     BobY = (yPrime + y) / 2
 
