@@ -1,3 +1,6 @@
+#Connor Gephart
+#LBS Project Submission
+
 def locator(distance):
     (x,y) = (0,0)
     d = distance(x,y)
