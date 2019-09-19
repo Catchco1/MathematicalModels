@@ -25,11 +25,20 @@ class car():
                               (self.distance + self.velocity*dt)
             # '2' below should be a parameter
             if future_distance > self.follow_distance:
-                self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4)
+                if self.car_ahead.accel < self.accel:
+                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4) / 8
+                else:
+                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4)
             elif future_distance > self.min_follow_distance:
-                self.accel = (future_distance-self.follow_distance)/2
+                if self.car_ahead.accel > self.accel:
+                    self.accel = (future_distance-self.follow_distance) * 8
+                else:
+                    self.accel = (future_distance-self.follow_distance)/2
             else:
-                self.accel = self.max_decel
+                if self.car_ahead.accel > self.accel:
+                    self.accel = self.max_decel / 8
+                else:
+                    self.accel = self.max_decel
                 
             
             self.velocity += self.accel * dt
@@ -45,7 +54,7 @@ class car():
 # Initialize the first car
 cars = [car('Null',30,100/3.6)]
 
-for i in range(4):
+for i in range(15):
     cars.append(car(cars[-1],27 - 7*i,100/3.6))
 
 distances = [ [car.car_ahead.distance - car.distance for car in cars[1:]] ]
