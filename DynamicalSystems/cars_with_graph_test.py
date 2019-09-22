@@ -18,17 +18,17 @@ class car():
     def update(self,dt):
         if self.car_ahead == 'Null':
             # For the lead car, life is easy
-            self.distance += self.velocity * dt
+            self.distance += self.velocity * dt + (.5 * self.accel * dt**2)
         else:
             # Compute how far away we expect to be:
             future_distance = self.car_ahead.distance - \
-                              (self.distance + self.velocity*dt)
+                              (self.distance + self.velocity*dt + (.5 * self.accel * dt**2))
             # '2' below should be a parameter
             if future_distance > self.follow_distance:
                 if self.car_ahead.accel < 0:
-                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4) / 8
+                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4) / 16
                 else:
-                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4)
+                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4) / 8
             elif future_distance > self.min_follow_distance:
                 if self.car_ahead.accel > self.accel:
                     self.accel = (future_distance-self.follow_distance) * 4
