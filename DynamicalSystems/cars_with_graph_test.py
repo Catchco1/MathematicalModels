@@ -14,6 +14,8 @@ class car():
         self.max_decel = -10 # meters/sec^2; panic stop
         self.max_velocity = 40 # meters/sec, 90 mph
 
+        self.collision = False
+
     # Inputs delta-t, updates acceleration, velocity, position
     def update(self,dt):
         if self.car_ahead == 'Null':
@@ -21,14 +23,13 @@ class car():
             self.distance += self.velocity * dt + (.5 * self.accel * dt**2)
         else:
             # Compute how far away we expect to be:
-            future_distance = self.car_ahead.distance - \
-                              (self.distance + self.velocity*dt + (.5 * self.accel * dt**2))
+            future_distance = self.car_ahead.distance - (self.distance + self.velocity*dt + (.5 * self.accel * dt**2))
             # '2' below should be a parameter
             if future_distance > self.follow_distance:
                 if self.car_ahead.accel < 0:
-                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4) / 16
+                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/64)
                 else:
-                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/4) / 8
+                    self.accel = min(self.max_accel,(future_distance-self.follow_distance)/32)
             elif future_distance > self.min_follow_distance:
                 if self.car_ahead.accel > self.accel:
                     self.accel = (future_distance-self.follow_distance) * 4
@@ -49,6 +50,8 @@ class car():
             # Distance check: see if we ran the other car over
             if self.distance > self.car_ahead.distance:
                 # For now, just set the gap at 0
+                print('collision')
+                self.collision = True
                 self.distance = self.car_ahead.distance
 
 # Initialize the first car
@@ -59,11 +62,15 @@ for i in range(10):
 
 distances = [ [car.car_ahead.distance - car.distance for car in cars[1:]] ]
 
-for t in range(200):
-	for car in cars:
-		car.update(.5)
-	#print([car.car_ahead.velocity - car.velocity for car in cars[1:]])    
-	distances.append([car.car_ahead.distance - car.distance for car in cars[1:]])
+fail = False
+for t in range(1000):
+    while(fail != True):
+        for car in cars:
+            car.update(.5)
+            if(car.collision is True):
+                fail = True
+        #print([car.car_ahead.velocity - car.velocity for car in cars[1:]])    
+        distances.append([car.car_ahead.distance - car.distance for car in cars[1:]])
 
 def accumulate(distance):
     for i in range(1,len(distance)):
