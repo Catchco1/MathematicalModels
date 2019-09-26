@@ -1,0 +1,63 @@
+\documentclass[12pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{MATH 377: Dynamical Systems Project}
+\author{Connor Gephart}
+\date{23 September 2019}
+
+\begin{document}
+
+\maketitle
+\section{Introduction}
+This project focused on finding a model to describe a series of cars driving on a highway. The original problem was posed as 5 cars, with the front car maintaining constant speed. Each successive car would try to maintain a certain distance behind the car in front of it. 
+The distance was measured in meters, velocity in meters per second, and acceleration in meters per second per second. The desired distance between cars, $d_f$, is 3 meters. However, a minimum distance of 1 meter is used to signify when the driver should panic and brake as strongly as possible. During the simulation, if a car gets within the 1 meter panic stop distance, the car will decelerate quickly at $max\_decel = -10$ meters per second per second. The position, velocity, and acceleration of each car is absolute, and thus compared to another car's values to get relative position, velocity, and acceleration.
+\newline
+\newline
+Below are the formulas used in the model. The cars are counted as car 0 being the first car going the constant speed, followed by car 1, car 2 ... up to car n. All constants in these formulas were heuristically chosen. 
+\section{Formulas}
+Distance:
+
+\[ d_{n_{i+1}} = d_{n_i} + v_{n_i} * \delta t + \frac{1}{2}(a_{n_i})(\delta t)^2\]
+Where $d_{n_i}$ is the current position, $v_{n_i}$is the current velocity, $a_i$ is the current acceleration of car n and $ \delta t$ is the change in time. 
+\newline
+\newline
+Velocity:
+
+\[ \begin{cases}
+    v_{n_{i+1}} = v_{n_i} + a_{n_i} * \delta t & v_{n_{i+1}} \leq 40 \\
+    v_{n_{i+1}} = 40 & v_{n_{i+1}} > 40
+    \end{cases}
+\]
+\newline
+Acceleration is split into several piecewise functions:
+\newline
+\newline
+\newline
+When $d_{n_{i+1}} > d_f$, that is the distance between car n and car n-1 is greater than 3:
+\[ \begin{cases} 
+      a_{n_{i+1}} = \frac{d_{n_{i+1}} - d_f}{64} & a_{n_{i+1}} < 2,  a_{{n-1}_i} < 0\\
+      a_{n_{i+1}} = \frac{d_{n_{i+1}} - d_f}{32} & a_{n_{i+1}} < 2,  a_{{n-1}_i} > 0 \\
+      a_{n_{i+1}} = 2 & a_{n_{i+1}} > 2
+   \end{cases}
+\]
+
+When $d_{n_{i+1}} > d_f$ and $d_{n_{i+1}} > 1$, that is the car is closer than the desired distance, but not yet at the panic stop point:
+\[ \begin{cases} 
+      a_{n_{i+1}} = (d_{n_{i+1}} - d_f) * 4 & a_{{n-1}_i} > a_{n_i}\\
+      a_{n_{i+1}} = \frac{d_{n_{i+1}} - d_f}{2} & a_{{n-1}_i} \leq a_{n_i}\\
+   \end{cases}
+\]
+
+Finally, when $d_{n_{i+1}} \leq 1$, this is when the car should be panic stopping because it is too close to the car in front:
+\[ \begin{cases} 
+      a_{n_{i+1}} = \frac{max\_decel}{8} & a_{{n-1}_i} > a_{n_i}\\
+      a_{n_{i+1}} = max\_decel & a_{{n-1}_i} \leq a_{n_i}\\
+   \end{cases}
+\]
+
+\section{Relationships}
+As shown above, the distance uses the typical physics definition for calculating distance which will depend on the change in time between measurements, as well as the current velocity and acceleration of the car. The velocity similarly depends on the current acceleration and change in time. The acceleration is made to change based on how close the cars are together. The idea behind comparing the current acceleration to the current acceleration of the car ahead is to simulate the driver seeing the brake lights of the car in front and adjusting speed accordingly. 
+
+
+\end{document}
