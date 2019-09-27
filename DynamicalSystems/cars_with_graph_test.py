@@ -10,16 +10,16 @@ class car():
         self.carnum = carnum
         
         self.follow_distance = 3
-        self.min_follow_distance = 0.5
+        self.min_follow_distance = 1
         self.max_accel = 2 # meters/sec^2
         self.max_decel = -10 # meters/sec^2; panic stop
         self.max_velocity = 40 # meters/sec, 90 mph
 
         self.desired_velocity = 30
         self.k1fast = 1/16
-        self.k1slow = 1/26.25
+        self.k1slow = 1/25
         self.k2fast = 7/13
-        self.k2slow = 5
+        self.k2slow = 2
         self.b = 1/350
         self.collision = False
 
@@ -68,7 +68,7 @@ class car():
 # Initialize the first car
 cars = [car('Null',30,100/3.6, 0)]
 
-for i in range(8):
+for i in range(5):
     cars.append(car(cars[-1],27 - 7*i,100/3.6, i + 1))
 
 distances = [ [car.car_ahead.distance - car.distance for car in cars[1:]] ]
