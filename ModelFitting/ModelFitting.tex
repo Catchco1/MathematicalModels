@@ -23,10 +23,14 @@ The Wire Stress data is the elongation, in $10^{-5}$ inches per inch, of a certa
 \end{figure}
 \newpage
 \subsection{Residuals}
-However, it is often best to try to simplify the models to make them easier to deal with. In this case, the equation can be rounded to the following: $y = 4.07x - 25.4$. This can then be compared by plotting the residuals between this model and the actual data, shown below. The largest difference is off by approximately 2\% so this model is a decent representation of the data, and would be good to use as a predictor.
+However, it is often best to try to simplify the models to make them easier to deal with. In this case, the equation can be rounded to the following: $y = 4.07x - 25.4$. This can then be compared by plotting the residuals between this model and the actual data, shown below. Additionally, the relative error plot is shown. The values in this graph were found by taking the residuals and dividing by the actual measurement. The relative error for the first data point is omitted, because it is known experimentally to be 0, but the model output was $5.5*10^{-5}$ inches per inch. The largest relative error was approximately 19\% for the second data point. However, no other data point approaches this high, as the second largest relative error is -2.9\%. 
 \begin{figure}[ht!]
   \includegraphics[width=\linewidth]{ElongationResiduals.PNG}
   \caption{wire stress residuals plot}
+\end{figure}
+\begin{figure}
+  \includegraphics[width=\linewidth]{ElongationRelativeError.PNG}
+  \caption{Wire stress relative error plot}
 \end{figure}
 \newpage
 \section{Pines}
@@ -38,14 +42,22 @@ The next data set compares the diameter, in inches, of a pine tree to the volume
 \end{figure}
 \newpage
 \subsection{Residuals}
-The practical application of this model would be for lumber workers who wish to know if a tree should be cut down based on its diameter. The equation given in the above graph is $y = 0.0032x^{3.0919}$, which is not the easiest formula to remember or use. The moderately simplified equation $y = 0.0032x^{3.1}$ is used to generate the residual plot below. The coefficient of $0.0032$ can be understood as applying the formula to large quantities of wood. This model is slightly worse for fit than with the wire stress above, but it still does a good job and is only 8\% incorrect at most. 
+The practical application of this model would be for lumber workers who wish to know if a tree should be cut down based on its diameter. The equation given in the above graph is $y = 0.0032x^{3.0919}$, which is not the easiest formula to remember or use. The moderately simplified equation $y = 0.0032x^{3.1}$ is used to generate the residual plot below. The coefficient of $0.0032$ can be understood as applying the formula to large quantities of wood. This model is slightly worse for fit than the one above, as it has a largest relative error of approximately -20\%, and the rest of the values fluxuate more than in the previous example. This can be seen by the relative error chart below. 
+\newpage
 \begin{figure}[ht!]
   \includegraphics[width=\linewidth]{PineResiduals.PNG}
   \caption{Pine residuals plot}
 \end{figure}
+\begin{figure}[ht!]
+  \includegraphics[width=\linewidth]{PinesRelativeError.PNG}
+  \caption{Pine relative error plot}
+\end{figure}
+\newpage
 
+\subsection{Question}
+In the project description, the following question was posed: If your model is applied to 1000 mature thick trees, what is a possible error of the estimate of total lumber volume? This model was not nearly as accurate as the other two in this project, and this error would become more pronounced with a larger sample size. Additionally, most of the error is an overestimate, meaning the actual volume will be less than predicted. This will result in losses for the lumber company. 
 \section{Planets}
-The goal of this set of data is to derive one of Kepler's Laws about the length of a planet's period, in days, and the minimum distance from the sun, in millions of kilometers. Similar to the pines data, a power trend line is applied to the data, but this time with $R^2 = 1$. However, comparing the equation of this line, $y=2.9403x^{0.6659}$ to the actual equation, $y=3x^{\frac{2}{3}}$ shows this to be an example of overfitting. The original scatter plot of the data, and then the scatter plot of the residuals using the actual equation are shown below. The residuals show a largest difference of 3\% when using the model to approximate actual data.  
+The goal of this set of data is to derive one of Kepler's Laws about the length of a planet's period, in days, and the minimum distance from the sun, in millions of kilometers. Similar to the pines data, a power trend line is applied to the data, but this time with $R^2 = 1$. However, comparing the equation of this line, $y=2.9403x^{0.6659}$ to the actual equation, $y=3x^{\frac{2}{3}}$ shows this to be an example of overfitting. The original scatter plot of the data, and then the scatter plot of the residuals using the actual equation are shown below. The relative error chart is also shown below. This model is a pretty good fit as the largest is about 3.5\%, and all the values are less than that.
 \begin{figure}[ht!]
   \includegraphics[width=\linewidth]{PlanetsScatter.PNG}
   \caption{Planets period v. minimum distance from sun scatter plot}
@@ -53,6 +65,10 @@ The goal of this set of data is to derive one of Kepler's Laws about the length 
 \begin{figure}[ht!]
   \includegraphics[width=\linewidth]{PlanetsResiduals.PNG}
   \caption{Planets residuals plot}
+\end{figure}
+\begin{figure}[ht!]
+  \includegraphics[width=\linewidth]{PlanetsRelativeError.PNG}
+  \caption{Planets relative error plot}
 \end{figure}
 
 \end{document}
