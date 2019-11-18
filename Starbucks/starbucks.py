@@ -15,11 +15,11 @@ def arrival_rate(t): # minutes between customers, on average
 
 def counter_rate(t): # minutes to place an order, on average
     if 0 <= t < 4*60:
-        return(0.5)
+        return(2/3)
     if 4*60 <= t < 11*60:
         return(1)
     if 11*60 <= t < 16*60:
-        return(2/3)
+        return(1.25)
 
 def preparation_rate(t): # minutes to make a drink, on average
     if 0 <= t < 4*60:
@@ -108,7 +108,7 @@ for i in range(int(16*60/dt)):
     in_line_times.append([])
     wait_times.append([])
 
-simulation = simulate(1000)
+simulation = simulate(10)
 morningLaborCost = (15*(1/counter_rate(0)) + 20*(1/preparation_rate(0))) * 4
 dayLaborCost = (15*(1/counter_rate(4*60)) + 20*(1/preparation_rate(4*60))) * 7
 eveningLaborCost = (15*(1/counter_rate(11*60)) + 20 *(1/preparation_rate(11*60))) * 5
@@ -125,9 +125,10 @@ for record in simulation:
                 downOrderCost += 1
         else:
             walkoutCost += 2
-
+downOrderCost = downOrderCost / len(simulation)
+walkoutCost = walkoutCost / len(simulation)
 totalCost = downOrderCost + walkoutCost + morningLaborCost + dayLaborCost + eveningLaborCost
-print("Down order cost: %d\n \
+print("Average down order cost per day: %d\n \
     Walkout cost: %d\n \
         Labor cost: %d" % (downOrderCost, walkoutCost, totalLaborCost))
 plt.plot([np.average(time) for time in in_line_times])
