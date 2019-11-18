@@ -108,7 +108,7 @@ for i in range(int(16*60/dt)):
     in_line_times.append([])
     wait_times.append([])
 
-simulation = simulate(10)
+simulation = simulate(1000)
 morningLaborCost = (15*(1/counter_rate(0)) + 20*(1/preparation_rate(0))) * 4
 dayLaborCost = (15*(1/counter_rate(4*60)) + 20*(1/preparation_rate(4*60))) * 7
 eveningLaborCost = (15*(1/counter_rate(11*60)) + 20 *(1/preparation_rate(11*60))) * 5
@@ -130,7 +130,8 @@ walkoutCost = walkoutCost / len(simulation)
 totalCost = downOrderCost + walkoutCost + morningLaborCost + dayLaborCost + eveningLaborCost
 print("Average down order cost per day: %d\n \
     Walkout cost: %d\n \
-        Labor cost: %d" % (downOrderCost, walkoutCost, totalLaborCost))
+    Labor cost: %d\n\
+    Total average cost per day: %d" % (downOrderCost, walkoutCost, totalLaborCost, totalCost))
 plt.plot([np.average(time) for time in in_line_times])
 plt.plot([np.std(time) for time in in_line_times])
 plt.show()
